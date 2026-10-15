@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Arcane Conseil, conseil privé à Paris : image, parole publique, gestion de crise et stratégie de carrière.">
+<title>Arcane Conseil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout : un seul système de grille (12 colonnes, label à gauche sur 3, contenu sur 9) repris partout ; accueil = entrée dans la serrure du logo au défilement. Univers clair assumé, une seule apparence. */
+:root{
+  --blanc:#FFFFFF;
+  --brume:#F5F7FC;
+  --marine:#0B1F4D;
+  --bleu:#1F3FBF;
+  --rouge:#D7263D;
+  --gris:#59657F;
+  --trait:rgba(11,31,77,.12);
+  --tri:linear-gradient(105deg,#2546C8 0%,#9DB0F2 30%,#FFFFFF 50%,#F2A5AF 70%,#D7263D 100%);
+  --tri-ligne:linear-gradient(90deg,#1F3FBF,#B9C6F5 45%,#F6B9C1 55%,#D7263D);
+  --display:"Sora",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --gout:clamp(20px,5vw,64px);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--blanc);color:var(--marine);font-family:var(--display);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--marine);color:var(--blanc)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--bleu);outline-offset:4px;border-radius:6px}
+.c{width:100%;max-width:1280px;margin-inline:auto;padding-inline:var(--gout)}
+.mono{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase}
+.tick{display:inline-flex;gap:0;vertical-align:middle;margin-right:12px}
+.tick i{display:block;width:8px;height:2px}
+.tick i:nth-child(1){background:var(--bleu)}.tick i:nth-child(2){background:#D9DEEC}.tick i:nth-child(3){background:var(--rouge)}
+.oeil{color:var(--gris);display:flex;align-items:center}
+
+/* Boutons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:48px;padding:0 24px;border-radius:999px;border:1px solid var(--marine);background:var(--marine);color:var(--blanc);font-weight:500;font-size:.92rem;letter-spacing:.01em;cursor:pointer;transition:transform .3s cubic-bezier(.2,.7,.2,1),background .3s,color .3s}
+.btn:hover{transform:translateY(-2px)}
+.btn svg{width:16px;height:16px;transition:transform .3s}
+.btn:hover svg{transform:translateX(4px)}
+.btn.vide{background:transparent;color:var(--marine)}
+.btn.vide:hover{background:var(--marine);color:var(--blanc)}
+
+/* Navigation */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
+.nav.plein{background:rgba(255,255,255,.82);backdrop-filter:saturate(1.4) blur(16px);-webkit-backdrop-filter:saturate(1.4) blur(16px);border-color:var(--trait)}
+.nav .c{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo svg{height:30px;width:auto;flex:none}
+.logo .mots{display:flex;flex-direction:column;gap:5px;line-height:1}
+.logo b{font-weight:600;font-size:.95rem;letter-spacing:.26em}
+.logo small{font-weight:300;font-size:.56rem;letter-spacing:.62em;color:var(--gris)}
+.liens{display:flex;align-items:center;gap:36px;font-size:.88rem}
+.liens a:not(.btn){position:relative;padding-block:6px;color:var(--marine)}
+.liens a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--tri-ligne);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.liens a:not(.btn):hover::after,.liens a.actif::after{transform:scaleX(1)}
+.burger{display:none;align-items:center;gap:10px;background:none;border:1px solid var(--trait);border-radius:999px;min-height:44px;padding:0 18px;cursor:pointer;font-size:.86rem}
+.burger span{display:grid;gap:4px}.burger span i{display:block;width:16px;height:1.5px;background:var(--marine)}
+@media (max-width:860px){.liens{display:none}.burger{display:inline-flex}}
+.voile-menu{position:fixed;inset:0;z-index:60;background:var(--blanc);padding:calc(env(safe-area-inset-top,0px) + 20px) var(--gout) calc(env(safe-area-inset-bottom,0px) + 32px);display:flex;flex-direction:column;gap:40px;transform:translateY(-100%);transition:transform .6s cubic-bezier(.7,0,.2,1)}
+.voile-menu.ouvert{transform:none}
+.voile-menu .haut{display:flex;justify-content:space-between;align-items:center;height:56px}
+.voile-menu nav{display:grid;gap:4px}
+.voile-menu nav a{font-size:clamp(2rem,9vw,3rem);font-weight:500;letter-spacing:-.03em;padding-block:6px;border-bottom:1px solid var(--trait)}
+.voile-menu .bas{margin-top:auto;display:grid;gap:16px}
+
+.barre-route{position:fixed;top:0;left:0;right:0;height:2px;z-index:70;background:var(--tri-ligne);transform:scaleX(0);transform-origin:left;pointer-events:none}
+.barre-route.go{animation:route .9s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes route{0%{transform:scaleX(0);opacity:1}70%{transform:scaleX(1);opacity:1}100%{transform:scaleX(1);opacity:0}}
+.page{display:block}
+.page[hidden]{display:none!important}
+.page.entre .anim{animation:entre .9s cubic-bezier(.2,.7,.2,1) both}
+.page.entre .anim:nth-child(2){animation-delay:.08s}.page.entre .anim:nth-child(3){animation-delay:.16s}.page.entre .anim:nth-child(4){animation-delay:.24s}
+@keyframes entre{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+
+/* ---------- Intro : la serrure ---------- */
+.intro{position:relative;height:250svh}
+.scene{position:sticky;top:0;height:100svh;overflow:hidden;background:var(--blanc)}
+.grille{position:absolute;inset:0;background-image:linear-gradient(var(--trait) 1px,transparent 1px),linear-gradient(90deg,var(--trait) 1px,transparent 1px);background-size:88px 88px;background-position:center;opacity:.45;-webkit-mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 10%,transparent 75%);mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 10%,transparent 75%)}
+.halo{position:absolute;inset:0;background:radial-gradient(40vmax 30vmax at 8% 90%,rgba(31,63,191,.10),transparent 70%),radial-gradient(40vmax 30vmax at 92% 10%,rgba(215,38,61,.08),transparent 70%)}
+.passage{position:absolute;inset:0;z-index:1;-webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='42 62 16 34' preserveAspectRatio='none'><circle cx='50' cy='70' r='8'/><path d='M45.5 74 L54.5 74 L57.5 96 L42.5 96 Z'/></svg>");mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='42 62 16 34' preserveAspectRatio='none'><circle cx='50' cy='70' r='8'/><path d='M45.5 74 L54.5 74 L57.5 96 L42.5 96 Z'/></svg>");-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:0 0;mask-size:0 0;background:#fff;overflow:hidden}
+.passage.libre{-webkit-mask-image:none;mask-image:none}
+.nappe{position:absolute;inset:-20%;background:radial-gradient(closest-side,rgba(31,63,191,.95),rgba(31,63,191,0));width:85vmax;height:85vmax;left:-30vmax;top:-10vmax;animation:derive1 16s ease-in-out infinite alternate}
+.nappe.r{background:radial-gradient(closest-side,rgba(215,38,61,.9),rgba(215,38,61,0));left:auto;right:-30vmax;top:auto;bottom:-20vmax;animation:derive2 18s ease-in-out infinite alternate}
+.nappe.b2{background:radial-gradient(closest-side,rgba(157,176,242,.8),rgba(157,176,242,0));width:60vmax;height:60vmax;left:10vmax;top:auto;bottom:-25vmax;animation:derive2 20s ease-in-out infinite alternate-reverse}
+.nappe.w{background:radial-gradient(closest-side,#fff,rgba(255,255,255,0));width:70vmax;height:55vmax;left:50%;top:50%;margin:-27.5vmax 0 0 -35vmax;animation:none}
+@keyframes derive1{to{transform:translate(12vmax,10vmax) scale(1.1)}}
+@keyframes derive2{to{transform:translate(-12vmax,-8vmax) scale(1.15)}}
+.contenu-intro{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(18px,3.4svh,34px);padding:96px var(--gout) 64px;text-align:center}
+.marque{position:relative;height:clamp(150px,30svh,300px);aspect-ratio:100/120;transform-origin:50% 65.833%;z-index:2}
+.marque svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.serrure-boite{position:absolute;left:42%;top:51.667%;width:16%;height:28.333%}
+.texte-intro{display:flex;flex-direction:column;align-items:center;gap:18px}
+.contenu-intro .oeil{justify-content:center}
+h1{margin:0;font-weight:600;font-size:clamp(2.05rem,5vw,4.4rem);line-height:1.02;letter-spacing:-.04em;max-width:15ch;text-wrap:balance}
+h1 .leger{font-weight:300}
+.chapo{margin:0;color:var(--gris);font-weight:300;font-size:clamp(.98rem,1.4vw,1.1rem);max-width:46ch;text-wrap:balance}
+.hud{position:absolute;z-index:4;font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);display:flex;align-items:center;gap:10px}
+.hud{--bord:max(var(--gout),calc(50% - 640px + var(--gout)))}
+.hud.hg{top:96px;left:var(--bord)}.hud.hd{top:96px;right:var(--bord)}
+.hud.bg{bottom:28px;left:var(--bord)}.hud.bd{bottom:28px;right:var(--bord)}
+.hud .pt{width:6px;height:6px;border-radius:50%;background:var(--rouge);animation:bat 1.6s ease-in-out infinite}
+@keyframes bat{50%{opacity:.25}}
+.compteur{font-variant-numeric:tabular-nums;color:var(--marine)}
+@media (max-width:760px){.hud.hg,.hud.hd{display:none}}
+.final{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;text-align:center;padding:96px var(--gout);opacity:0;pointer-events:none}
+.final.vu{pointer-events:auto}
+.final h2{margin:0;font-weight:600;font-size:clamp(2.2rem,6.4vw,5.6rem);line-height:1;letter-spacing:-.045em;max-width:13ch;text-wrap:balance}
+.intro.statique{height:auto}
+.intro.statique .scene{position:relative;height:auto;min-height:100svh}
+.intro.statique .contenu-intro{position:relative;min-height:100svh}
+.intro.statique .final,.intro.statique .passage{display:none}
+
+/* ---------- Sections ---------- */
+section.bloc{padding-block:clamp(88px,13vw,168px)}
+.g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);row-gap:32px}
+.g>.lab{grid-column:1/4;padding-top:10px}
+.g>.corps{grid-column:4/13;min-width:0}
+@media (max-width:900px){.g>.lab,.g>.corps{grid-column:1/-1}.g>.lab{padding-top:0}}
+h2{margin:0;font-weight:600;font-size:clamp(2rem,4.6vw,3.8rem);line-height:1.02;letter-spacing:-.04em;text-wrap:balance}
+h2 .leger{font-weight:300;color:var(--gris)}
+
+.manifeste{margin:0;font-weight:400;font-size:clamp(1.55rem,3.6vw,3.1rem);line-height:1.22;letter-spacing:-.03em;max-width:24ch}
+.manifeste .m{color:#8E99B4;transition:color .45s}
+.manifeste .m.on{color:var(--marine)}
+.manifeste .m.acc.on{background:var(--tri-ligne);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.tete-sec{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:clamp(36px,5vw,64px)}
+.liste-missions{border-top:1px solid var(--trait)}
+.lm{position:relative;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1.4fr) auto 52px;align-items:center;gap:clamp(16px,3vw,40px);padding-block:clamp(26px,3.4vw,40px);border-bottom:1px solid var(--trait)}
+.lm::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--tri-ligne);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.lm:hover::after{transform:scaleX(1)}
+.lm-nom{font-weight:500;font-size:clamp(1.5rem,3vw,2.4rem);letter-spacing:-.035em;line-height:1.05;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.lm:hover .lm-nom{transform:translateX(10px)}
+.lm-desc{color:var(--gris);font-weight:300;font-size:.95rem;max-width:40ch}
+.lm-prix{font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.fleche{width:52px;height:52px;border-radius:50%;border:1px solid var(--trait);display:grid;place-items:center;transition:background .35s,border-color .35s,color .35s}
+.fleche svg{width:18px;height:18px;transition:transform .35s}
+.lm:hover .fleche{background:var(--marine);border-color:var(--marine);color:var(--blanc)}
+.lm:hover .fleche svg{transform:rotate(-45deg)}
+@media (max-width:760px){.lm{grid-template-columns:minmax(0,1fr) 44px;row-gap:10px}.lm-desc{grid-column:1/2;grid-row:2}.lm-prix{grid-column:1/2;grid-row:3}.fleche{grid-column:2;grid-row:1/4;width:44px;height:44px}}
+
+.etapes{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,3vw,40px);padding-top:40px}
+.rail{position:absolute;top:0;left:0;right:0;height:1px;background:var(--trait)}
+.rail i{position:absolute;inset:0;background:var(--tri-ligne);transform-origin:left;transform:scaleX(var(--p,1))}
+.etape{display:grid;gap:12px;align-content:start}
+.etape .mono{color:var(--bleu)}
+.etape h3{margin:0;font-weight:500;font-size:1.2rem;letter-spacing:-.02em}
+.etape p{margin:0;color:var(--gris);font-weight:300;font-size:.94rem}
+@media (max-width:900px){.etapes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.etapes{grid-template-columns:1fr}}
+
+.engag{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--trait)}
+.engag>div{padding:32px 28px 8px 0;display:grid;gap:10px;align-content:start}
+.engag>div+div{padding-left:28px;border-left:1px solid var(--trait)}
+.engag b{font-weight:500;font-size:1.15rem;letter-spacing:-.02em}
+.engag p{margin:0;color:var(--gris);font-weight:300;font-size:.94rem}
+@media (max-width:760px){.engag{grid-template-columns:1fr}.engag>div,.engag>div+div{padding:24px 0;border-left:0;border-bottom:1px solid var(--trait)}}
+
+.appel{position:relative;overflow:hidden;padding-block:clamp(96px,14vw,180px);text-align:center;background:var(--tri);background-size:130% 100%;background-position:50% 50%;animation:glisse 14s ease-in-out infinite alternate}
+@keyframes glisse{from{background-position:35% 50%}to{background-position:65% 50%}}
+.appel::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 42% 70% at 50% 50%,rgba(255,255,255,.92),rgba(255,255,255,0) 70%)}
+.appel .c{position:relative;display:flex;flex-direction:column;align-items:center;gap:28px}
+.appel h2{max-width:16ch}
+
+footer{border-top:1px solid var(--trait);padding-block:64px calc(40px + env(safe-area-inset-bottom,0px))}
+.pied{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);row-gap:40px}
+.pied>div:first-child{grid-column:1/5;display:grid;gap:16px;align-content:start}
+.pied>div:nth-child(2){grid-column:6/9}.pied>div:nth-child(3){grid-column:9/13}
+.pied h4{margin:0 0 14px;font-family:var(--mono);font-weight:400;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris)}
+.pied ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;font-size:.92rem}
+.pied p{margin:0;color:var(--gris);font-weight:300;font-size:.9rem;max-width:34ch}
+.pied a:hover{color:var(--bleu)}
+.mentions{margin-top:56px;padding-top:24px;border-top:1px solid var(--trait);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;color:var(--gris)}
+@media (max-width:760px){.pied>div:first-child,.pied>div:nth-child(2),.pied>div:nth-child(3){grid-column:1/-1}}
+
+/* ---------- Page mission ---------- */
+.mp-tete{position:relative;padding-top:calc(76px + clamp(64px,10vw,128px));padding-bottom:clamp(56px,8vw,96px);overflow:hidden}
+.mp-orbe{position:absolute;right:-12vmax;top:-6vmax;width:52vmax;height:52vmax;border-radius:50%;background:radial-gradient(circle at 35% 40%,rgba(31,63,191,.22),transparent 55%),radial-gradient(circle at 68% 62%,rgba(215,38,61,.18),transparent 55%);pointer-events:none;animation:derive1 18s ease-in-out infinite alternate}
+.fil{display:flex;flex-wrap:wrap;gap:10px;align-items:center;color:var(--gris);margin-bottom:28px}
+.fil a:hover{color:var(--bleu)}
+.mp-titre{margin:0;font-weight:600;font-size:clamp(2.7rem,8vw,6.6rem);line-height:.98;letter-spacing:-.05em;max-width:12ch;text-wrap:balance}
+.mp-intro{margin:28px 0 0;font-weight:300;font-size:clamp(1.05rem,1.7vw,1.3rem);color:var(--gris);max-width:52ch}
+.mp-meta{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;gap:16px 40px}
+.mp-meta .item{display:grid;gap:4px}
+.mp-meta .item span:first-child{color:var(--gris)}
+.mp-meta .item strong{font-weight:500;font-size:1.05rem;font-variant-numeric:tabular-nums}
+.separe{height:1px;background:var(--tri-ligne);opacity:.7}
+.inclus{list-style:none;margin:0;padding:0;border-top:1px solid var(--trait)}
+.inclus li{display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;align-items:baseline;padding-block:18px;border-bottom:1px solid var(--trait);font-size:clamp(1rem,1.5vw,1.15rem)}
+.inclus li span{font-family:var(--mono);font-size:.72rem;color:var(--bleu);letter-spacing:.1em}
+.formules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:980px){.formules{grid-template-columns:1fr}}
+.formule{position:relative;display:flex;flex-direction:column;gap:18px;padding:32px 28px;border:1px solid var(--trait);border-radius:22px;background:var(--blanc);min-width:0;transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s}
+.formule:hover{transform:translateY(-4px);box-shadow:0 24px 60px -30px rgba(11,31,77,.35)}
+.formule.phare{border:1px solid transparent;background:linear-gradient(var(--blanc),var(--blanc)) padding-box,var(--tri-ligne) border-box}
+.badge{position:absolute;top:-13px;left:28px;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;padding:6px 10px;border-radius:999px;background:var(--marine);color:var(--blanc)}
+.formule h3{margin:0;font-weight:500;font-size:1.2rem;letter-spacing:-.02em}
+.prix{display:grid;gap:2px}
+.prix strong{font-weight:600;font-size:clamp(2rem,3.4vw,2.6rem);letter-spacing:-.04em;line-height:1.05;font-variant-numeric:tabular-nums}
+.prix span{color:var(--gris);font-size:.88rem}
+.formule ul{list-style:none;margin:0;padding:18px 0 0;border-top:1px solid var(--trait);display:grid;gap:10px;font-size:.93rem}
+.formule li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:10px;align-items:start}
+.formule li svg{width:16px;height:16px;margin-top:4px;color:var(--bleu)}
+.formule .btn{margin-top:auto;width:100%}
+.exemples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:980px){.exemples{grid-template-columns:1fr}}
+.ex{display:grid;gap:16px;align-content:start;padding:28px;border-radius:22px;background:var(--brume);min-width:0}
+.pilule{justify-self:start;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;padding:7px 12px;border-radius:999px;background:var(--blanc);border:1px solid var(--trait)}
+.ex dl{margin:0;display:grid;gap:14px}
+.ex dt{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-bottom:4px}
+.ex dd{margin:0;font-size:.95rem}
+.ex dd.vise{font-weight:500}
+.note{color:var(--gris);font-weight:300;font-size:.92rem;margin:0;max-width:44ch}
+.suivante{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;padding-block:clamp(48px,7vw,88px);border-top:1px solid var(--trait)}
+.suivante .nom{font-weight:500;font-size:clamp(1.8rem,5vw,3.6rem);letter-spacing:-.04em;line-height:1}
+
+/* ---------- Devis ---------- */
+.devis-g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2vw,32px);row-gap:48px;align-items:start}
+.devis-g>.gauche{grid-column:1/6;display:grid;gap:28px;align-content:start}
+.devis-g>.droite{grid-column:7/13;min-width:0}
+@media (max-width:980px){.devis-g>.gauche,.devis-g>.droite{grid-column:1/-1}}
+.points{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--trait)}
+.points li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:8px;padding-block:16px;border-bottom:1px solid var(--trait);font-size:.95rem}
+.points li span{font-family:var(--mono);font-size:.72rem;color:var(--bleu);padding-top:3px}
+.contact-mail{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.contact-mail b{font-weight:500;user-select:all}
+.copier{background:none;border:1px solid var(--trait);border-radius:999px;min-height:36px;padding:0 14px;font-size:.8rem;cursor:pointer}
+.copier:hover{border-color:var(--marine)}
+form.devis{display:grid;gap:22px;padding:clamp(24px,3vw,40px);border-radius:26px;border:1px solid transparent;background:linear-gradient(var(--blanc),var(--blanc)) padding-box,var(--tri-ligne) border-box;box-shadow:0 40px 80px -50px rgba(11,31,77,.35)}
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:560px){.duo{grid-template-columns:1fr}}
+.champ{display:grid;gap:8px;min-width:0}
+.champ label,.champ .lbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+.champ input,.champ select,.champ textarea{width:100%;min-height:50px;padding:12px 16px;border-radius:14px;border:1px solid var(--trait);background:var(--brume);color:var(--marine);font:400 .95rem var(--display);transition:border-color .25s,background .25s}
+.champ select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%230B1F4D' stroke-width='1.5'/></svg>");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
+.champ input:focus,.champ select:focus,.champ textarea:focus{outline:none;border-color:var(--bleu);background:var(--blanc)}
+.champ textarea{min-height:120px;resize:vertical}
+.puces{display:flex;flex-wrap:wrap;gap:8px}
+.puces label{position:relative;cursor:pointer}
+.puces input{position:absolute;opacity:0;pointer-events:none}
+.puces span{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid var(--trait);font-size:.86rem;transition:all .25s}
+.puces input:checked+span{background:var(--marine);border-color:var(--marine);color:var(--blanc)}
+.puces input:focus-visible+span{outline:2px solid var(--bleu);outline-offset:2px}
+.accord{display:grid;grid-template-columns:20px minmax(0,1fr);gap:12px;align-items:start;font-size:.86rem;color:var(--gris)}
+.accord input{width:18px;height:18px;margin-top:2px;accent-color:var(--marine)}
+.erreur{margin:0;color:var(--rouge);font-size:.88rem;min-height:1.3em}
+.merci{display:grid;gap:18px;padding:clamp(24px,3vw,40px);border-radius:26px;background:var(--brume)}
+.merci h3{margin:0;font-weight:600;font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:-.03em}
+.merci p{margin:0;color:var(--gris)}
+.recap{display:grid;gap:8px;padding:18px;border-radius:16px;background:var(--blanc);font-size:.92rem}
+.recap div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px}
+.recap span{color:var(--gris)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+
+<div class="barre-route" id="barre-route" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="c">
+    <a class="logo" href="#accueil" aria-label="Arcane Conseil, accueil">
+      <svg viewBox="0 0 100 120" aria-hidden="true"><path d="M12 116 L50 6 L88 116" fill="none" stroke="#0B1F4D" stroke-width="11"/><circle cx="50" cy="70" r="8" fill="#D7263D"/><path d="M45.5 74 L54.5 74 L57.5 96 L42.5 96 Z" fill="#D7263D"/></svg>
+      <span class="mots"><b>ARCANE</b><small>CONSEIL</small></span>
+    </a>
+    <nav class="liens" aria-label="Navigation principale">
+      <a href="#accueil" data-goto="missions">Missions</a>
+      <a href="#accueil" data-goto="methode">Méthode</a>
+      <a href="#accueil" data-goto="engagements">Engagements</a>
+      <a class="btn" href="#devis">Demander un devis <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
+    </nav>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu"><span aria-hidden="true"><i></i><i></i></span>Menu</button>
+  </div>
+</header>
+
+<div class="voile-menu" id="menu" aria-hidden="true">
+  <div class="haut">
+    <span class="logo"><svg viewBox="0 0 100 120" aria-hidden="true"><path d="M12 116 L50 6 L88 116" fill="none" stroke="#0B1F4D" stroke-width="11"/><circle cx="50" cy="70" r="8" fill="#D7263D"/><path d="M45.5 74 L54.5 74 L57.5 96 L42.5 96 Z" fill="#D7263D"/></svg><span class="mots"><b>ARCANE</b><small>CONSEIL</small></span></span>
+    <button class="burger" id="fermer" type="button" style="display:inline-flex">Fermer</button>
+  </div>
+  <nav aria-label="Menu mobile">
+    <a href="#image">Image et influence</a>
+    <a href="#parole">Parole publique</a>
+    <a href="#crise">Gestion de crise</a>
+    <a href="#conseiller">Conseiller spécial</a>
+  </nav>
+  <div class="bas">
+    <a class="btn" href="#devis">Demander un devis</a>
+    <span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Paris · Conseil privé</span>
+  </div>
+</div>
+
+<main>
+<!-- ================= ACCUEIL ================= -->
+<div class="page" id="p-accueil" data-page="accueil">
+  <section class="intro" id="intro" aria-label="Introduction">
+    <div class="scene">
+      <div class="halo" aria-hidden="true"></div>
+      <div class="grille" aria-hidden="true"></div>
+      <div class="passage" id="passage" aria-hidden="true">
+        <div class="nappe"></div><div class="nappe b2"></div><div class="nappe r"></div><div class="nappe w"></div>
+      </div>
+      <div class="hud hg" aria-hidden="true">48°51′N · 2°16′E</div>
+      <div class="hud hd" aria-hidden="true"><span class="pt"></span>Accès restreint</div>
+      <div class="hud bg" aria-hidden="true">Paris 16e</div>
+      <div class="hud bd" aria-hidden="true">Entrée <span class="compteur" id="compteur">000</span></div>
+
+      <div class="contenu-intro">
+        <div class="texte-intro" id="haut-intro">
+          <span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Conseil privé · Paris</span>
+        </div>
+        <div class="marque" id="marque">
+          <svg viewBox="0 0 100 120" role="img" aria-label="Logo Arcane Conseil">
+            <path d="M12 116 L50 6 L88 116" fill="none" stroke="#0B1F4D" stroke-width="11"/>
+            <g id="serrure-rouge"><circle cx="50" cy="70" r="8" fill="#D7263D"/><path d="M45.5 74 L54.5 74 L57.5 96 L42.5 96 Z" fill="#D7263D"/></g>
+          </svg>
+          <div class="serrure-boite" id="serrure-boite"></div>
+        </div>
+        <div class="texte-intro" id="bas-intro">
+          <h1>Ce qui compte se décide <span class="leger">en coulisses.</span></h1>
+          <p class="chapo">Image, parole publique, crise et trajectoire. Le conseil privé des personnalités qui ne laissent rien au hasard.</p>
+        </div>
+      </div>
+
+      <div class="final" id="final">
+        <span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Premier cercle</span>
+        <h2>Ce qui se dit ici reste ici.</h2>
+        <a class="btn" href="#accueil" data-goto="missions">Découvrir les missions <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2v12M3 9l5 5 5-5"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="manifeste-sec">
+    <div class="c g">
+      <div class="lab"><span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Le cabinet</span></div>
+      <div class="corps">
+        <p class="manifeste" id="manifeste">Arcane Conseil accompagne celles et ceux dont <span class="acc">le nom est la marque.</span> Sportifs, artistes, personnalités politiques, entrepreneurs. Un seul conseiller, une ligne directe, <span class="acc">une discrétion totale.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="missions" style="padding-top:0">
+    <div class="c g">
+      <div class="lab"><span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Missions</span></div>
+      <div class="corps">
+        <div class="tete-sec">
+          <h2>Quatre missions. <span class="leger">Une seule exigence.</span></h2>
+        </div>
+        <div class="liste-missions" id="liste-missions"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="methode" style="background:var(--brume)">
+    <div class="c g">
+      <div class="lab"><span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Méthode</span></div>
+      <div class="corps">
+        <div class="tete-sec"><h2>Comprendre, <span class="leger">puis agir.</span></h2></div>
+        <div class="etapes" id="etapes">
+          <div class="rail"><i id="rail"></i></div>
+          <div class="etape"><span class="mono">01 · Écoute</span><h3>Un premier échange</h3><p>Trente minutes, en toute confidentialité, pour comprendre votre situation et vos ambitions.</p></div>
+          <div class="etape"><span class="mono">02 · Diagnostic</span><h3>Une lecture lucide</h3><p>Votre image actuelle, votre audience, vos forces et les risques à anticiper.</p></div>
+          <div class="etape"><span class="mono">03 · Stratégie</span><h3>Un plan écrit</h3><p>Des priorités claires, des objectifs mesurables, un calendrier réaliste.</p></div>
+          <div class="etape"><span class="mono">04 · Action</span><h3>À vos côtés</h3><p>Mise en œuvre, ajustements réguliers et présence aux moments décisifs.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloc" id="engagements">
+    <div class="c g">
+      <div class="lab"><span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Engagements</span></div>
+      <div class="corps">
+        <div class="tete-sec"><h2>Trois règles, <span class="leger">sans exception.</span></h2></div>
+        <div class="engag">
+          <div><span class="mono" style="color:var(--bleu)">Règle 1</span><b>Confidentialité totale</b><p>Accord de confidentialité signé dès le premier rendez vous. Aucun client cité sans accord écrit.</p></div>
+          <div><span class="mono" style="color:var(--bleu)">Règle 2</span><b>Un seul interlocuteur</b><p>Vous parlez toujours à la même personne, qui connaît votre dossier par cœur.</p></div>
+          <div><span class="mono" style="color:var(--rouge)">Règle 3</span><b>Réponse sous 24 h</b><p>Et sous deux heures en situation de crise, week end compris.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="appel">
+    <div class="c">
+      <span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Premier échange offert</span>
+      <h2>Votre prochain mouvement commence ici.</h2>
+      <a class="btn" href="#devis">Demander un devis <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></a>
+    </div>
+  </section>
+</div>
+
+<!-- ================= MISSION ================= -->
+<div class="page" id="p-mission" data-page="mission" hidden></div>
+
+<!-- ================= DEVIS ================= -->
+<div class="page" id="p-devis" data-page="devis" hidden>
+  <section class="mp-tete">
+    <div class="mp-orbe" aria-hidden="true"></div>
+    <div class="c devis-g" style="position:relative">
+      <div class="gauche">
+        <div class="fil mono anim"><a href="#accueil">Accueil</a><span>/</span><span>Devis</span></div>
+        <h1 class="mp-titre anim" style="font-size:clamp(2.6rem,7vw,5.6rem)">Parlons de votre situation.</h1>
+        <p class="mp-intro anim" style="margin-top:0">Décrivez votre besoin en quelques lignes. Vous recevez une proposition chiffrée sous 48 h, sans engagement.</p>
+        <ul class="points anim">
+          <li><span>01</span>Votre demande est lue par votre futur conseiller, personne d'autre.</li>
+          <li><span>02</span>Premier échange de 30 minutes offert, en visio ou à Paris.</li>
+          <li><span>03</span>Proposition écrite avec prix ferme et calendrier.</li>
+        </ul>
+        <div class="contact-mail anim"><span class="mono oeil">Email</span><b id="mail">contact@arcaneconseil.fr</b><button class="copier" type="button" id="copier">Copier</button></div>
+      </div>
+      <div class="droite anim" id="zone-form">
+        <form class="devis" id="form-devis" novalidate>
+          <div class="duo">
+            <div class="champ"><label for="d-mission">Mission</label><select id="d-mission" name="mission"></select></div>
+            <div class="champ"><label for="d-formule">Formule</label><select id="d-formule" name="formule"></select></div>
+          </div>
+          <div class="champ"><span class="lbl" id="lbl-profil">Vous êtes</span>
+            <div class="puces" role="radiogroup" aria-labelledby="lbl-profil">
+              <label><input type="radio" name="profil" id="pr-sport" value="Sportif" checked><span>Sportif</span></label>
+              <label><input type="radio" name="profil" id="pr-art" value="Artiste"><span>Artiste</span></label>
+              <label><input type="radio" name="profil" id="pr-pol" value="Personnalité politique"><span>Personnalité politique</span></label>
+              <label><input type="radio" name="profil" id="pr-ent" value="Entrepreneur"><span>Entrepreneur</span></label>
+              <label><input type="radio" name="profil" id="pr-aut" value="Autre"><span>Autre</span></label>
+            </div>
+          </div>
+          <div class="duo">
+            <div class="champ"><label for="d-nom">Nom</label><input id="d-nom" name="nom" autocomplete="name" placeholder="Prénom Nom"></div>
+            <div class="champ"><label for="d-email">Email</label><input id="d-email" name="email" type="email" autocomplete="email" placeholder="vous@exemple.fr"></div>
+          </div>
+          <div class="duo">
+            <div class="champ"><label for="d-tel">Téléphone (optionnel)</label><input id="d-tel" name="tel" type="tel" autocomplete="tel" placeholder="06 00 00 00 00"></div>
+            <div class="champ"><label for="d-delai">Échéance</label><select id="d-delai" name="delai"><option>Urgent, sous 48 h</option><option>Dans le mois</option><option>Dans les 3 mois</option><option>Pas de date précise</option></select></div>
+          </div>
+          <div class="champ"><label for="d-msg">Votre situation</label><textarea id="d-msg" name="message" placeholder="Quelques lignes suffisent. Tout reste confidentiel."></textarea></div>
+          <label class="accord" for="d-accord"><input type="checkbox" id="d-accord"><span>J'accepte d'être recontacté au sujet de ma demande. Mes informations ne sont jamais partagées.</span></label>
+          <p class="erreur" id="erreur" role="alert"></p>
+          <button class="btn" type="submit">Envoyer ma demande <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></button>
+        </form>
+        <div class="merci" id="merci" hidden>
+          <span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Demande prête</span>
+          <h3 id="merci-titre">Merci.</h3>
+          <div class="recap" id="recap"></div>
+          <p>L'envoi automatique sera branché à la mise en ligne du site. En attendant, votre demande peut être adressée à contact@arcaneconseil.fr.</p>
+          <button class="btn vide" type="button" id="nouvelle" style="justify-self:start">Nouvelle demande</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div class="c">
+    <div class="pied">
+      <div>
+        <a class="logo" href="#accueil"><svg viewBox="0 0 100 120" aria-hidden="true"><path d="M12 116 L50 6 L88 116" fill="none" stroke="#0B1F4D" stroke-width="11"/><circle cx="50" cy="70" r="8" fill="#D7263D"/><path d="M45.5 74 L54.5 74 L57.5 96 L42.5 96 Z" fill="#D7263D"/></svg><span class="mots"><b>ARCANE</b><small>CONSEIL</small></span></a>
+        <p>Conseil privé en image, parole publique, gestion de crise et stratégie de carrière.</p>
+      </div>
+      <div><h4>Missions</h4><ul id="pied-missions"></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="#devis">Demander un devis</a></li><li>contact@arcaneconseil.fr</li><li>Paris 16e, sur rendez vous</li></ul></div>
+    </div>
+    <div class="mentions mono"><span>© 2026 Arcane Conseil</span><span>Paris · France</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var MISSIONS = [
+    {id:'image', nom:'Image et influence', court:"Audit, repositionnement et pilotage de votre image publique.", des:'Dès 490 €', delai:'2 à 6 semaines',
+     intro:"Votre image travaille pour vous ou contre vous, même quand vous ne dites rien. Nous l'analysons, la clarifions et la pilotons pour qu'elle serve vos ambitions.",
+     inclus:["Audit complet de votre présence : presse, réseaux, recherche Google","Positionnement : ce que vous incarnez, en une phrase","Ligne éditoriale et piliers de contenu pour vos réseaux","Recommandations de style, de photo et d'identité visuelle","Feuille de route sur six mois, priorisée"],
+     formules:[
+      {nom:'Diagnostic', prix:'490 €', unite:'mission unique', items:["Audit de votre image en ligne et presse","Entretien de 90 minutes","Rapport écrit et feuille de route"]},
+      {nom:'Repositionnement', prix:'1 900 €', unite:'mission de six semaines', phare:true, items:["Diagnostic complet inclus","Positionnement et ligne éditoriale","Plan de contenu sur trois mois","Deux points de suivi"]},
+      {nom:'Suivi image', prix:'1 500 €', unite:'par mois', items:["Pilotage continu de votre image","Validation de vos publications","Veille presse et réseaux","Point mensuel"]}],
+     exemples:[
+      {profil:'Sportif', situation:"Milieu de terrain de 27 ans, image limitée au terrain, aucun partenaire hors sport.", action:"Audit, positionnement autour de la transmission, ligne éditoriale Instagram.", objectif:"Un dossier partenaires prêt en six semaines."},
+      {profil:'Artiste', situation:"Chanteuse indépendante, album dans trois mois, univers visuel éclaté.", action:"Clarification de l'univers, charte personnelle, calendrier de prises de parole.", objectif:"Une image cohérente le jour de la sortie."},
+      {profil:'Entrepreneur', situation:"Fondateur en pleine levée de fonds, quasi absent en ligne.", action:"Profil LinkedIn repensé, trois prises de position, médias spécialisés ciblés.", objectif:"Être identifié par les investisseurs avant les rendez vous."}]},
+    {id:'parole', nom:'Parole publique', court:"Media training, préparation d'interviews et écriture de discours.", des:'Dès 300 €', delai:'48 h à deux semaines',
+     intro:"Une interview se gagne avant d'entrer sur le plateau. Nous préparons chaque prise de parole pour que vous disiez ce que vous voulez dire, et rien d'autre.",
+     inclus:["Media training face caméra, en conditions réelles","Préparation des questions difficiles et des relances","Éléments de langage et messages clés","Écriture et répétition de discours","Débrief après chaque passage"],
+     formules:[
+      {nom:"Préparation d'interview", prix:'300 €', unite:'par interview', items:["Analyse du média et du journaliste","Messages clés et réponses types","Répétition de 60 minutes"]},
+      {nom:'Media training', prix:'650 €', unite:'la demi journée', phare:true, items:["Exercices filmés face caméra","Simulation d'interview hostile","Analyse vidéo et axes de progrès","Fiche réflexes personnalisée"]},
+      {nom:'Plume et discours', prix:'900 €', unite:'par discours', items:["Écriture sur mesure","Deux séries de corrections","Répétition et travail de la voix"]}],
+     exemples:[
+      {profil:'Politique', situation:"Candidat aux municipales, premier débat télévisé dans dix jours.", action:"Trois sessions filmées, fiches thématiques, simulation avec contradicteur.", objectif:"Tenir trois messages clés face aux attaques."},
+      {profil:'Sportif', situation:"Conférence de presse au retour d'une longue blessure.", action:"Préparation des questions sensibles, ton juste, message de remerciements.", objectif:"Parler du retour, pas de la blessure."},
+      {profil:'Entrepreneur', situation:"Premier passage en plateau dans une émission économique.", action:"Pitch en 30 secondes, chiffres clés mémorisés, répétition filmée.", objectif:"Une séquence reprise sur les réseaux le jour même."}]},
+    {id:'crise', nom:'Gestion de crise', court:"Réponse rapide, éléments de langage et reconstruction de l'image.", des:'Dès 1 200 €', delai:'Intervention sous 24 h',
+     intro:"En crise, chaque heure compte et chaque mot reste. Nous prenons la situation en main, décidons quoi dire, quand et à qui, puis nous reconstruisons.",
+     inclus:["Analyse de la situation en moins de 24 h","Stratégie de réponse : parler, attendre ou corriger","Communiqués et éléments de langage","Relations presse et veille en temps réel","Plan de reconstruction de l'image"],
+     formules:[
+      {nom:'Intervention urgente', prix:'1 200 €', unite:'les 48 premières heures', items:["Analyse immédiate","Stratégie de réponse","Premier communiqué rédigé"]},
+      {nom:'Cellule de crise', prix:'3 500 €', unite:'par semaine', phare:true, items:["Disponibilité sept jours sur sept","Veille presse et réseaux continue","Gestion des demandes médias","Point quotidien"]},
+      {nom:'Reconstruction', prix:'2 500 €', unite:'par mois', items:["Plan de retour progressif","Prises de parole choisies","Suivi de la perception"]}],
+     exemples:[
+      {profil:'Artiste', situation:"D'anciens messages ressortent la veille d'une tournée.", action:"Analyse du risque, excuses sobres, consigne de silence ensuite.", objectif:"Que la tournée redevienne le sujet en une semaine."},
+      {profil:'Politique', situation:"Une phrase sortie de son contexte circule massivement.", action:"Publication de l'extrait complet, éléments de langage, un seul média choisi.", objectif:"Reprendre la main sur le récit en 48 h."},
+      {profil:'Entrepreneur', situation:"Conflit public avec un ancien associé, relayé par la presse.", action:"Ligne de conduite unique, réponses écrites aux journalistes, veille quotidienne.", objectif:"Protéger la marque et les investisseurs."}]},
+    {id:'conseiller', nom:'Conseiller spécial', court:"Stratégie de carrière, réseau et présence aux moments clés.", des:'Dès 250 € / h', delai:'Engagement mensuel ou trimestriel',
+     intro:"Certaines décisions ne se prennent pas seul. Un conseiller spécial, c'est un regard extérieur, un réseau, et une présence quand ça compte vraiment.",
+     inclus:["Séances stratégiques régulières","Préparation des décisions de carrière","Mises en relation ciblées","Présence aux rendez vous importants","Ligne directe, réponse rapide"],
+     formules:[
+      {nom:'Séance stratégique', prix:'250 €', unite:"de l'heure", items:["Un sujet, une décision","Préparation en amont","Synthèse écrite"]},
+      {nom:'Trimestre', prix:'4 500 €', unite:'pour trois mois', phare:true, items:["Deux séances par mois","Feuille de route de carrière","Mises en relation","Ligne directe en semaine"]},
+      {nom:'Premier cercle', prix:'Dès 5 000 €', unite:'par mois, sur devis', items:["Disponibilité forte","Présence aux moments clés","Gestion de crise incluse","Réseau mobilisé"]}],
+     exemples:[
+      {profil:'Sportif', situation:"Fin de carrière dans deux saisons, aucune piste de reconversion.", action:"Bilan des envies et des atouts, rencontres dans trois secteurs, plan sur 24 mois.", objectif:"Une reconversion choisie, pas subie."},
+      {profil:'Politique', situation:"Élu local qui vise un mandat national.", action:"Cartographie des soutiens, calendrier de visibilité, préparation des rendez vous clés.", objectif:"Être identifié comme un choix crédible."},
+      {profil:'Entrepreneur', situation:"Dirigeant qui veut entrer dans des conseils d'administration.", action:"Positionnement d'administrateur, réseau ciblé, préparation des entretiens.", objectif:"Un premier mandat dans l'année."}]}
+  ];
+
+  var FL = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg>';
+  var CHECK = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg>';
+  var TICK = '<span class="tick"><i></i><i></i><i></i></span>';
+  var $ = function(s){return document.querySelector(s)};
+  var reduit = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Liste des missions (accueil + pied) */
+  $('#liste-missions').innerHTML = MISSIONS.map(function(m){
+    return '<a class="lm" href="#'+m.id+'"><span class="lm-nom">'+m.nom+'</span><span class="lm-desc">'+m.court+'</span><span class="lm-prix">'+m.des+'</span><span class="fleche">'+FL+'</span></a>';
+  }).join('');
+  $('#pied-missions').innerHTML = MISSIONS.map(function(m){return '<li><a href="#'+m.id+'">'+m.nom+'</a></li>'}).join('');
+
+  /* Manifeste : mots qui s'allument */
+  var man = $('#manifeste');
+  (function(){
+    var out = [];
+    man.childNodes.forEach(function(n){
+      var acc = n.nodeType === 1;
+      var txt = n.textContent;
+      txt.split(/(\s+)/).forEach(function(t){
+        if(!t) return;
+        if(/^\s+$/.test(t)) out.push(t); else out.push('<span class="m'+(acc?' acc':'')+'">'+t+'</span>');
+      });
+    });
+    man.innerHTML = out.join('');
+  })();
+  var mots = man.querySelectorAll('.m');
+
+  /* Page mission */
+  function pageMission(m){
+    var i = MISSIONS.indexOf(m), suiv = MISSIONS[(i+1)%MISSIONS.length];
+    return ''+
+    '<section class="mp-tete"><div class="mp-orbe" aria-hidden="true"></div><div class="c" style="position:relative">'+
+      '<div class="fil mono anim"><a href="#accueil">Accueil</a><span>/</span><a href="#accueil" data-goto="missions">Missions</a><span>/</span><span>'+m.nom+'</span></div>'+
+      '<h1 class="mp-titre anim">'+m.nom+'</h1>'+
+      '<p class="mp-intro anim">'+m.intro+'</p>'+
+      '<div class="mp-meta anim">'+
+        '<div class="item"><span class="mono">Tarif</span><strong>'+m.des+'</strong></div>'+
+        '<div class="item"><span class="mono">Délai</span><strong>'+m.delai+'</strong></div>'+
+        '<a class="btn" href="#devis" data-mission="'+m.id+'">Demander un devis '+FL+'</a>'+
+      '</div>'+
+    '</div></section>'+
+    '<div class="c"><div class="separe"></div></div>'+
+    '<section class="bloc"><div class="c g"><div class="lab"><span class="mono oeil">'+TICK+'La mission</span></div><div class="corps">'+
+      '<div class="tete-sec"><h2>Ce que comprend <span class="leger">la mission.</span></h2></div>'+
+      '<ul class="inclus">'+m.inclus.map(function(x,k){return '<li><span>'+String(k+1).padStart(2,'0')+'</span>'+x+'</li>'}).join('')+'</ul>'+
+    '</div></div></section>'+
+    '<section class="bloc" style="padding-top:0"><div class="c g"><div class="lab"><span class="mono oeil">'+TICK+'Formules</span></div><div class="corps">'+
+      '<div class="tete-sec"><h2>Trois formules, <span class="leger">des prix clairs.</span></h2><p class="note">Tarifs indicatifs hors taxes. Le prix ferme est confirmé après le premier échange.</p></div>'+
+      '<div class="formules">'+m.formules.map(function(f){
+        return '<article class="formule'+(f.phare?' phare':'')+'">'+(f.phare?'<span class="badge">Recommandée</span>':'')+
+          '<h3>'+f.nom+'</h3><div class="prix"><strong>'+f.prix+'</strong><span>'+f.unite+'</span></div>'+
+          '<ul>'+f.items.map(function(x){return '<li>'+CHECK+'<span>'+x+'</span></li>'}).join('')+'</ul>'+
+          '<a class="btn'+(f.phare?'':' vide')+'" href="#devis" data-mission="'+m.id+'" data-formule="'+f.nom+'">Demander un devis</a></article>';
+      }).join('')+'</div>'+
+    '</div></div></section>'+
+    '<section class="bloc" style="padding-top:0"><div class="c g"><div class="lab"><span class="mono oeil">'+TICK+'Micro exemples</span></div><div class="corps">'+
+      '<div class="tete-sec"><h2>Comment nous <span class="leger">intervenons.</span></h2><p class="note">Cas types, pour illustrer notre façon de travailler.</p></div>'+
+      '<div class="exemples">'+m.exemples.map(function(e){
+        return '<article class="ex"><span class="pilule">'+e.profil+'</span><dl>'+
+          '<div><dt>Situation</dt><dd>'+e.situation+'</dd></div>'+
+          '<div><dt>Intervention</dt><dd>'+e.action+'</dd></div>'+
+          '<div><dt>Objectif</dt><dd class="vise">'+e.objectif+'</dd></div></dl></article>';
+      }).join('')+'</div>'+
+    '</div></div></section>'+
+    '<section class="appel"><div class="c"><span class="mono oeil">'+TICK+'Premier échange offert</span><h2>'+m.nom+', parlons de votre cas.</h2><a class="btn" href="#devis" data-mission="'+m.id+'">Demander un devis '+FL+'</a></div></section>'+
+    '<div class="c"><a class="suivante" href="#'+suiv.id+'"><span class="mono oeil">Mission suivante</span><span class="nom">'+suiv.nom+'</span><span class="fleche">'+FL+'</span></a></div>';
+  }
+
+  /* Formulaire de devis */
+  var selM = $('#d-mission'), selF = $('#d-formule');
+  selM.innerHTML = MISSIONS.map(function(m){return '<option value="'+m.id+'">'+m.nom+'</option>'}).join('') + '<option value="autre">Je ne sais pas encore</option>';
+  function majFormules(val){
+    var m = MISSIONS.find(function(x){return x.id === selM.value});
+    selF.innerHTML = m ? m.formules.map(function(f){return '<option>'+f.nom+'</option>'}).join('') + '<option>À définir ensemble</option>' : '<option>À définir ensemble</option>';
+    if(val) selF.value = val;
+  }
+  selM.addEventListener('change', function(){ majFormules(); });
+  majFormules();
+  var pre = null;
+
+  $('#form-devis').addEventListener('submit', function(e){
+    e.preventDefault();
+    var nom = $('#d-nom').value.trim(), mail = $('#d-email').value.trim(), err = $('#erreur');
+    if(!nom){ err.textContent = 'Indiquez votre nom.'; $('#d-nom').focus(); return; }
+    if(!/^\S+@\S+\.\S+$/.test(mail)){ err.textContent = 'Indiquez un email valide, par exemple nom@domaine.fr.'; $('#d-email').focus(); return; }
+    if(!$('#d-accord').checked){ err.textContent = 'Cochez la case pour que nous puissions vous recontacter.'; return; }
+    err.textContent = '';
+    var profil = document.querySelector('input[name="profil"]:checked').value;
+    var lignes = [['Mission', selM.options[selM.selectedIndex].text],['Formule', selF.value],['Profil', profil],['Échéance', $('#d-delai').value],['Contact', mail]];
+    var r = $('#recap'); r.innerHTML = '';
+    lignes.forEach(function(l){ var d = document.createElement('div'); var s = document.createElement('span'); s.textContent = l[0]; var b = document.createElement('b'); b.textContent = l[1]; b.style.fontWeight = '500'; d.appendChild(s); d.appendChild(b); r.appendChild(d); });
+    $('#merci-titre').textContent = 'Merci ' + nom.split(' ')[0] + ', votre demande est prête.';
+    $('#form-devis').hidden = true; $('#merci').hidden = false;
+  });
+  $('#nouvelle').addEventListener('click', function(){ $('#merci').hidden = true; $('#form-devis').hidden = false; });
+  $('#copier').addEventListener('click', function(){
+    var b = this, t = $('#mail').textContent;
+    function ok(){ b.textContent = 'Copié'; setTimeout(function(){ b.textContent = 'Copier'; }, 1600); }
+    try { navigator.clipboard.writeText(t).then(ok, function(){ sel(); }); } catch(_) { sel(); }
+    function sel(){ var rg = document.createRange(); rg.selectNodeContents($('#mail')); var s = getSelection(); s.removeAllRanges(); s.addRange(rg); b.textContent = 'Sélectionné'; }
+  });
+
+  /* Menu mobile */
+  var menu = $('#menu'), burger = $('#burger');
+  menu.inert = true;
+  function menuOuvert(o){ menu.inert = !o; menu.classList.toggle('ouvert', o); menu.setAttribute('aria-hidden', o ? 'false' : 'true'); burger.setAttribute('aria-expanded', o ? 'true' : 'false'); document.body.style.overflow = o ? 'hidden' : ''; }
+  burger.addEventListener('click', function(){ menuOuvert(true); });
+  $('#fermer').addEventListener('click', function(){ menuOuvert(false); });
+
+  /* Routeur */
+  var courant = 'accueil', cibleGoto = null;
+  var pages = { accueil: $('#p-accueil'), mission: $('#p-mission'), devis: $('#p-devis') };
+  function allerA(id){
+    var el = document.getElementById(id); if(!el) return;
+    var y = el.getBoundingClientRect().top + scrollY - (id === 'missions' ? 40 : 0);
+    window.scrollTo({ top: y, behavior: reduit ? 'auto' : 'smooth' });
+  }
+  function route(){
+    var h = (location.hash || '').slice(1) || 'accueil';
+    var m = MISSIONS.find(function(x){ return x.id === h; });
+    var cle = m ? 'mission' : (h === 'devis' ? 'devis' : 'accueil');
+    Object.keys(pages).forEach(function(k){ pages[k].hidden = k !== cle; pages[k].classList.remove('entre'); });
+    if(m) pages.mission.innerHTML = pageMission(m);
+    if(cle === 'devis' && pre){ selM.value = pre.mission; majFormules(pre.formule); pre = null; }
+    courant = cle;
+    menuOuvert(false);
+    var br = $('#barre-route'); br.classList.remove('go'); void br.offsetWidth; br.classList.add('go');
+    void pages[cle].offsetWidth; pages[cle].classList.add('entre');
+    if(cle === 'accueil' && cibleGoto){ var g = cibleGoto; cibleGoto = null; window.scrollTo(0,0); setTimeout(function(){ allerA(g); }, 60); }
+    else window.scrollTo(0,0);
+    tick();
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest('a'); if(!a) return;
+    if(a.dataset.mission){ pre = { mission: a.dataset.mission, formule: a.dataset.formule || null }; if(courant === 'devis'){ e.preventDefault(); route(); } }
+    if(a.dataset.goto){
+      e.preventDefault();
+      if(courant === 'accueil'){ menuOuvert(false); allerA(a.dataset.goto); }
+      else { cibleGoto = a.dataset.goto; if(location.hash === '#accueil') route(); else location.hash = 'accueil'; }
+    }
+    else if(a.getAttribute('href') === '#' + ((location.hash||'').slice(1) || 'accueil') && courant !== 'devis'){ e.preventDefault(); route(); }
+  });
+  addEventListener('hashchange', route);
+
+  /* Défilement : serrure, manifeste, rail, navigation */
+  var intro = $('#intro'), marque = $('#marque'), boite = $('#serrure-boite'), passage = $('#passage');
+  var rouge = $('#serrure-rouge'), haut = $('#haut-intro'), bas = $('#bas-intro'), fin = $('#final'), compteur = $('#compteur');
+  var nav = $('#nav'), rail = $('#rail');
+  if(reduit) intro.classList.add('statique');
+  function cl(v){ return Math.max(0, Math.min(1, v)); }
+  var attente = false;
+  function tick(){
+    attente = false;
+    var vh = innerHeight;
+    if(courant === 'accueil'){
+      var r = intro.getBoundingClientRect();
+      var total = intro.offsetHeight - vh;
+      var p = reduit ? 0 : cl(-r.top / Math.max(1,total));
+      if(!reduit){
+        var z = cl((p - .04) / .76);
+        var s = Math.pow(110, z * z * (3 - 2 * z));
+        marque.style.transform = 'scale(' + s + ')';
+        rouge.style.opacity = 1 - cl((p - .04) / .16);
+        var t = 1 - cl(p / .14);
+        haut.style.opacity = t; bas.style.opacity = t;
+        haut.style.transform = 'translateY(' + (-(1-t) * 40) + 'px)';
+        bas.style.transform = 'translateY(' + ((1-t) * 40) + 'px)';
+        if(p > .9){ passage.classList.add('libre'); }
+        else {
+          passage.classList.remove('libre');
+          var b = boite.getBoundingClientRect();
+          var pos = b.left + 'px ' + b.top + 'px', taille = b.width + 'px ' + b.height + 'px';
+          passage.style.webkitMaskPosition = pos; passage.style.maskPosition = pos;
+          passage.style.webkitMaskSize = taille; passage.style.maskSize = taille;
+        }
+        var f = cl((p - .74) / .14);
+        fin.style.opacity = f; fin.style.transform = 'translateY(' + ((1-f) * 24) + 'px)';
+        fin.classList.toggle('vu', f > .5);
+        compteur.textContent = String(Math.round(p * 100)).padStart(3, '0');
+      }
+      nav.classList.toggle('plein', r.bottom < 80 || (reduit && scrollY > 10));
+      var mr = man.getBoundingClientRect();
+      var mp = cl((vh * .85 - mr.top) / (mr.height + vh * .35));
+      var n = Math.round(mp * mots.length * 1.05);
+      mots.forEach(function(w, i){ w.classList.toggle('on', i < n); });
+      var er = $('#etapes').getBoundingClientRect();
+      rail.style.setProperty('--p', reduit ? 1 : cl((vh * .8 - er.top) / (vh * .5)));
+    } else {
+      nav.classList.toggle('plein', scrollY > 10);
+    }
+  }
+  function demande(){ if(!attente){ attente = true; requestAnimationFrame(tick); } }
+  addEventListener('scroll', demande, { passive: true });
+  addEventListener('resize', demande);
+  route();
+})();
+</script>
+</body>
+</html>
