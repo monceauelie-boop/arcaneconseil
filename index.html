@@ -3,8 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Arcane Conseil : conseil privé pour les personnalités et marketing pour les entreprises.">
-<title>Arcane Conseil</title>
+<meta name="description" content="Arcane Conseil, cabinet de conseil à Paris 16e : conseil privé en image, parole publique et gestion de crise pour sportifs, personnalités politiques et entrepreneurs, et services marketing pour les entreprises.">
+<meta property="og:title" content="Arcane Conseil | Conseil privé et marketing à Paris 16e">
+<meta property="og:description" content="Conseil privé pour les personnalités et marketing pour les entreprises, à Paris 16e.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta name="geo.region" content="FR-75">
+<meta name="geo.placename" content="Paris 16e">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"Arcane Conseil","description":"Cabinet de conseil à Paris 16e : conseil privé en image, parole publique, gestion de crise et stratégie de carrière, et services marketing (création de site web, vidéo motion design, SEO et LLM, audit marketing).","email":"arcaneconseil@gmail.com","telephone":"+33651771858","address":{"@type":"PostalAddress","streetAddress":"Rue du Général Delestraint","postalCode":"75016","addressLocality":"Paris","addressRegion":"Île de France","addressCountry":"FR"},"areaServed":[{"@type":"City","name":"Paris"},{"@type":"AdministrativeArea","name":"Paris 16e arrondissement"}],"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"08:00","closes":"23:30"},"sameAs":["https://www.instagram.com/arcaneconseil/"]}
+</script>
+<title>Arcane Conseil | Conseil privé et marketing à Paris 16e</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -243,6 +252,28 @@ form.devis{display:grid;gap:22px;padding:clamp(24px,3.4vw,44px);border-radius:28
 .recap{display:grid;gap:8px;padding:18px 22px;border-radius:16px;background:var(--blanc);font-size:.92rem;width:100%;max-width:460px;text-align:left}
 .recap div{display:grid;grid-template-columns:100px minmax(0,1fr);gap:12px}
 .recap span{color:var(--gris)}
+.agenda{max-width:860px;margin:0 auto;padding:clamp(20px,3vw,36px);border-radius:28px;border:1px solid var(--trait);background:var(--blanc);display:grid;gap:22px}
+.ag-mois{text-align:center;font-weight:500;text-transform:capitalize}
+.ag-nav{display:flex;align-items:center;gap:8px}
+.ag-fl{width:44px;height:44px;flex:none;border-radius:50%;border:1px solid var(--trait);background:none;cursor:pointer;display:grid;place-items:center}
+.ag-fl svg{width:16px;height:16px}
+.ag-fl:hover{border-color:var(--marine)}
+.ag-fl:disabled{opacity:.3;cursor:default;border-color:var(--trait)}
+.ag-jours{flex:1;min-width:0;display:grid;grid-template-columns:repeat(var(--n,7),minmax(0,1fr));gap:6px}
+.jour{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 2px;border-radius:14px;border:1px solid var(--trait);background:var(--blanc);cursor:pointer;color:var(--marine);transition:background .25s,border-color .25s,color .25s}
+.jour span{font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.jour b{font-size:1.2rem;font-weight:600;font-variant-numeric:tabular-nums}
+.jour:hover{border-color:var(--bleu)}
+.jour[aria-pressed="true"]{background:var(--marine);border-color:var(--marine);color:var(--blanc)}
+.jour[aria-pressed="true"] span{color:#B9C6F5}
+.ag-creneaux{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.creneau{min-height:44px;border-radius:12px;border:1px solid var(--trait);background:var(--brume);color:var(--marine);cursor:pointer;font-family:var(--mono);font-size:.85rem;font-variant-numeric:tabular-nums;transition:background .25s,border-color .25s,color .25s}
+.creneau:hover{border-color:var(--bleu)}
+.creneau[aria-pressed="true"]{background:var(--marine);border-color:var(--marine);color:var(--blanc)}
+.creneau:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.ag-vide{grid-column:1/-1;text-align:center;color:var(--gris);margin:0;padding-block:12px}
+.ag-form{display:grid;gap:18px;padding-top:22px;border-top:1px solid var(--trait)}
+.ag-choix{margin:0;text-align:center;font-weight:500}
 
 footer{border-top:1px solid var(--trait);padding-block:72px calc(40px + env(safe-area-inset-bottom,0px));text-align:center}
 .pied{display:flex;flex-direction:column;align-items:center;gap:28px}
@@ -288,6 +319,17 @@ footer{border-top:1px solid var(--trait);padding-block:72px calc(40px + env(safe
 .popup .fermer:hover{background:var(--brume);color:var(--marine)}
 .popup .fermer svg{width:14px;height:14px}
 @media (max-width:560px){.popup{right:16px;left:16px;width:auto}}
+
+/* Boutons ronds Instagram et WhatsApp */
+.social{position:fixed;left:var(--gout);bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:45;display:flex;flex-direction:column;gap:12px}
+.rond{position:relative;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:var(--marine);background:linear-gradient(var(--blanc),var(--blanc)) padding-box,var(--tri-ligne) border-box;border:1.5px solid transparent;box-shadow:0 16px 36px -18px rgba(11,31,77,.55);transition:transform .35s cubic-bezier(.2,.7,.2,1),color .3s,background .3s}
+.rond svg{width:22px;height:22px;position:relative;z-index:1}
+.rond::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--marine);transform:scale(0);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.rond:hover{transform:translateY(-3px);color:var(--blanc)}
+.rond:hover::before{transform:scale(1)}
+.rond.wa::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px solid rgba(31,63,191,.35);animation:onde 2.4s ease-out infinite}
+@keyframes onde{from{transform:scale(.85);opacity:1}to{transform:scale(1.25);opacity:0}}
+@media (max-width:560px){.social{left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));gap:10px}.rond{width:48px;height:48px}.popup{bottom:calc(132px + env(safe-area-inset-bottom,0px))}}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
@@ -466,7 +508,8 @@ footer{border-top:1px solid var(--trait);padding-block:72px calc(40px + env(safe
         <li><span>02</span>Premier échange de 30 minutes offert, en visio ou à Paris.</li>
         <li><span>03</span>Proposition écrite avec prix ferme et calendrier.</li>
       </ul>
-      <div class="contact-mail anim"><span class="mono oeil">Email</span><b id="mail">contact@arcaneconseil.fr</b><button class="copier" type="button" id="copier">Copier</button></div>
+      <div class="contact-mail anim"><span class="mono oeil">Email</span><b id="mail">arcaneconseil@gmail.com</b><button class="copier" type="button" id="copier">Copier</button></div>
+      <div class="contact-mail anim" style="margin-top:12px"><span class="mono oeil">Téléphone</span><b>06 51 77 18 58</b></div>
     </div>
   </section>
   <section style="padding-bottom:clamp(88px,12vw,150px)">
@@ -500,11 +543,46 @@ footer{border-top:1px solid var(--trait);padding-block:72px calc(40px + env(safe
           <button class="btn envoyer" type="submit">Envoyer ma demande <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></button>
         </form>
         <div class="merci" id="merci" hidden>
-          <span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Demande prête</span>
+          <span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Demande envoyée</span>
           <h3 id="merci-titre">Merci.</h3>
           <div class="recap" id="recap"></div>
-          <p>L'envoi automatique sera branché à la mise en ligne du site. En attendant, votre demande peut être adressée à contact@arcaneconseil.fr.</p>
+          <p>Nous vous répondons sous 48 h à l'adresse indiquée.</p>
           <button class="btn vide" type="button" id="nouvelle">Nouvelle demande</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rdv" style="padding-bottom:clamp(88px,12vw,150px)">
+    <div class="c">
+      <div class="tete">
+        <span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Visio</span>
+        <h2>Prendre rendez vous <span class="leger">en visio.</span></h2>
+        <p>Choisissez un jour puis un créneau de 45 minutes. Disponible tous les jours, de 8 h à 23 h 30.</p>
+      </div>
+      <div class="agenda">
+        <div class="ag-mois" id="ag-mois"></div>
+        <div class="ag-nav">
+          <button class="ag-fl" type="button" id="ag-prec" aria-label="Jours précédents"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 8H2M7 3L2 8l5 5"/></svg></button>
+          <div class="ag-jours" id="ag-jours" role="group" aria-label="Choisir un jour"></div>
+          <button class="ag-fl" type="button" id="ag-suiv" aria-label="Jours suivants"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></button>
+        </div>
+        <div class="ag-creneaux" id="ag-creneaux" role="group" aria-label="Choisir un créneau"></div>
+        <form class="ag-form" id="ag-form" novalidate>
+          <p class="ag-choix" id="ag-choix">Aucun créneau sélectionné</p>
+          <div class="duo">
+            <div class="champ"><label for="r-nom">Nom</label><input id="r-nom" name="nom" autocomplete="name" placeholder="Prénom Nom"></div>
+            <div class="champ"><label for="r-email">Email</label><input id="r-email" name="email" type="email" autocomplete="email" placeholder="vous@exemple.fr"></div>
+          </div>
+          <label class="accord" for="r-accord"><input type="checkbox" id="r-accord"><span>J'accepte d'être recontacté au sujet de ce rendez vous. Mes informations ne sont jamais partagées.</span></label>
+          <p class="erreur" id="r-erreur" role="alert"></p>
+          <button class="btn envoyer" type="submit">Confirmer le rendez vous <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></button>
+        </form>
+        <div class="merci" id="ag-merci" hidden>
+          <span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Rendez vous demandé</span>
+          <h3 id="ag-merci-titre">Merci.</h3>
+          <p id="ag-merci-texte"></p>
+          <button class="btn vide" type="button" id="ag-autre">Choisir un autre créneau</button>
         </div>
       </div>
     </div>
@@ -517,7 +595,7 @@ footer{border-top:1px solid var(--trait);padding-block:72px calc(40px + env(safe
     <div class="pied">
       <a class="logo" href="#accueil"><svg viewBox="0 0 100 120" aria-hidden="true"><path d="M12 116 L50 6 L88 116" fill="none" stroke="#0B1F4D" stroke-width="11"/><circle cx="50" cy="70" r="8" fill="#D7263D"/><path d="M45.5 74 L54.5 74 L57.5 96 L42.5 96 Z" fill="#D7263D"/></svg><span class="mots"><b>ARCANE</b><small>CONSEIL</small></span></a>
       <nav aria-label="Pied de page"><a href="#accueil">Accueil</a><a href="#qui-sommes-nous">Qui sommes nous</a><a href="#services">Services</a><a href="#contact">Contact</a></nav>
-      <p>contact@arcaneconseil.fr</p>
+      <p>arcaneconseil@gmail.com · 06 51 77 18 58</p>
     </div>
     <div class="mentions">
       <div class="mono">© 2026 Arcane Conseil</div>
@@ -539,6 +617,11 @@ footer{border-top:1px solid var(--trait);padding-block:72px calc(40px + env(safe
     <button class="btn vide" type="button" id="ck-refuser">Refuser</button>
     <button class="btn" type="button" id="ck-accepter">Accepter</button>
   </div>
+</div>
+
+<div class="social" aria-label="Réseaux">
+  <a class="rond ig" href="https://www.instagram.com/arcaneconseil/" target="_blank" rel="noopener" aria-label="Instagram Arcane Conseil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+  <a class="rond wa" href="https://wa.me/33651771858" target="_blank" rel="noopener" aria-label="WhatsApp Arcane Conseil"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.3 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3z"/></svg></a>
 </div>
 
 <aside class="popup" id="popup" aria-label="Premier échange offert" hidden>
@@ -671,20 +754,20 @@ footer{border-top:1px solid var(--trait);padding-block:72px calc(40px + env(safe
   function A(t){ return '<span class="ac">[' + t + ']</span>'; }
   var LEGAL = {
     'mentions-legales': { titre:'Mentions légales', intro:"Informations relatives à l'éditeur et à l'hébergeur du site, conformément à la loi pour la confiance dans l'économie numérique.", sections:[
-      ['Éditeur du site', '<p><b>Arcane Conseil</b>, ' + A('Prénom Nom') + ', entrepreneur individuel (EI)</p><ul><li>Adresse : ' + A('adresse') + '</li><li>SIRET : ' + A('numéro SIRET') + '</li><li>Email : contact@arcaneconseil.fr</li><li>Téléphone : ' + A('numéro') + '</li><li>TVA : ' + A('numéro de TVA intracommunautaire, ou « TVA non applicable, article 293 B du CGI »') + '</li></ul>'],
-      ['Directeur de la publication', '<p>' + A('Prénom Nom') + '</p>'],
-      ['Hébergement', '<ul><li>' + A("nom de l'hébergeur") + '</li><li>' + A('adresse') + '</li><li>' + A('téléphone') + '</li></ul>'],
+      ['Éditeur du site', '<p><b>Arcane Conseil</b>, Elie Monceau, entrepreneur individuel (EI)</p><ul><li>Adresse : Rue du Général Delestraint, 75016 Paris</li><li>SIRET : ' + A('numéro SIRET') + '</li><li>Email : arcaneconseil@gmail.com</li><li>Téléphone : 06 51 77 18 58</li><li>TVA : ' + A('numéro de TVA intracommunautaire, ou « TVA non applicable, article 293 B du CGI »') + '</li></ul>'],
+      ['Directeur de la publication', '<p>Elie Monceau</p>'],
+      ['Hébergement', '<ul><li><b>Vercel Inc.</b></li><li>440 N Barranca Ave #4133, Covina, CA 91723, États Unis</li><li>vercel.com</li></ul>'],
       ['Propriété intellectuelle', "<p>L'ensemble des contenus de ce site (textes, logo, éléments graphiques) est la propriété d'Arcane Conseil. Toute reproduction, totale ou partielle, sans autorisation écrite préalable est interdite.</p>"],
       ['Responsabilité', "<p>Les informations présentées sur ce site sont fournies à titre indicatif. Les tarifs affichés sont indicatifs et confirmés par un devis écrit.</p>"],
       ['Données personnelles', '<p>Le traitement de vos données est décrit dans notre <a href="#confidentialite"><b>politique de confidentialité</b></a>.</p>']]},
     'confidentialite': { titre:'Politique de confidentialité', intro:"Comment Arcane Conseil collecte, utilise et protège vos données personnelles, conformément au RGPD.", sections:[
-      ['Responsable du traitement', '<p><b>Arcane Conseil</b>, ' + A('Prénom Nom') + ', contact@arcaneconseil.fr</p>'],
-      ['Données collectées', '<p>Via le formulaire de contact : nom, adresse email, téléphone (facultatif), profil, service souhaité, échéance et message.</p>'],
+      ['Responsable du traitement', '<p><b>Arcane Conseil</b>, Elie Monceau, arcaneconseil@gmail.com</p>'],
+      ['Données collectées', '<p>Via le formulaire de contact : nom, adresse email, téléphone (facultatif), profil, service souhaité, échéance et message. Via la prise de rendez vous : nom, adresse email, date et heure choisies.</p>'],
       ['Finalités', '<p>Répondre à votre demande, établir un devis et assurer le suivi de notre relation.</p>'],
       ['Base légale', "<p>Votre consentement, et les mesures précontractuelles prises à votre demande.</p>"],
       ['Durée de conservation', "<p>Trois ans à compter de notre dernier échange, sauf obligation légale de conservation plus longue.</p>"],
-      ['Destinataires', "<p>Vos données sont destinées uniquement à Arcane Conseil. Elles ne sont jamais vendues ni cédées. Prestataires techniques : " + A('hébergeur et outils utilisés') + '.</p>'],
-      ['Vos droits', "<p>Vous disposez d'un droit d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité de vos données. Pour l'exercer, écrivez à contact@arcaneconseil.fr. Vous pouvez aussi adresser une réclamation à la CNIL (cnil.fr).</p>"]]},
+      ['Destinataires', "<p>Vos données sont destinées uniquement à Arcane Conseil. Elles ne sont jamais vendues ni cédées. Prestataires techniques : Formspree (transmission des formulaires) et Vercel (hébergement du site).</p>"],
+      ['Vos droits', "<p>Vous disposez d'un droit d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité de vos données. Pour l'exercer, écrivez à arcaneconseil@gmail.com. Vous pouvez aussi adresser une réclamation à la CNIL (cnil.fr).</p>"]]},
     'cookies': { titre:'Politique cookies', intro:"Ce que sont les cookies, ceux que ce site utilise et comment gérer vos choix.", sections:[
       ["Qu'est ce qu'un cookie", "<p>Un cookie est un petit fichier enregistré sur votre appareil lors de la visite d'un site. Il permet notamment de mémoriser vos préférences.</p>"],
       ['Cookies nécessaires', "<p>Ils permettent au site de fonctionner et de mémoriser votre choix concernant les cookies. Ils ne nécessitent pas votre accord.</p>"],
@@ -709,7 +792,7 @@ footer{border-top:1px solid var(--trait);padding-block:72px calc(40px + env(safe
       '<p class="intro-page anim">' + L.intro + '</p></div></section>' +
       '<section style="padding-bottom:clamp(88px,12vw,150px)"><div class="c"><div class="legal">' +
       L.sections.map(function(s){ return '<section><h2>' + s[0] + '</h2>' + s[1] + '</section>'; }).join('') +
-      '<p class="note maj" style="text-align:center">Dernière mise à jour : ' + A('date') + '</p></div></div></section>';
+      '<p class="note maj" style="text-align:center">Dernière mise à jour : 27/10/2026</p></div></div></section>';
   }
 
   /* Formulaire */
@@ -734,12 +817,95 @@ footer{border-top:1px solid var(--trait);padding-block:72px calc(40px + env(safe
     err.textContent = '';
     var profil = document.querySelector('input[name="profil"]:checked').value;
     var lignes = [['Service', selS.options[selS.selectedIndex].text], ['Formule', selF.value], ['Profil', profil], ['Échéance', $('#d-delai').value], ['Contact', mail]];
-    var r = $('#recap'); r.innerHTML = '';
-    lignes.forEach(function(l){ var d = document.createElement('div'), sp = document.createElement('span'), b = document.createElement('b'); sp.textContent = l[0]; b.textContent = l[1]; b.style.fontWeight = '500'; d.appendChild(sp); d.appendChild(b); r.appendChild(d); });
-    $('#merci-titre').textContent = 'Merci ' + nom.split(' ')[0] + ', votre demande est prête.';
-    $('#form-devis').hidden = true; $('#merci').hidden = false;
+    var bouton = this.querySelector('button[type="submit"]');
+    var donnees = { _subject: 'Nouvelle demande de contact', type: 'Contact', service: lignes[0][1], formule: selF.value, profil: profil, nom: nom, email: mail, telephone: $('#d-tel').value.trim(), echeance: $('#d-delai').value, message: $('#d-msg').value.trim() };
+    envoyer(donnees, bouton, err, function(){
+      var r = $('#recap'); r.innerHTML = '';
+      lignes.forEach(function(l){ var d = document.createElement('div'), sp = document.createElement('span'), b = document.createElement('b'); sp.textContent = l[0]; b.textContent = l[1]; b.style.fontWeight = '500'; d.appendChild(sp); d.appendChild(b); r.appendChild(d); });
+      $('#merci-titre').textContent = 'Merci ' + nom.split(' ')[0] + ', votre demande est envoyée.';
+      $('#form-devis').reset(); majFormules();
+      $('#form-devis').hidden = true; $('#merci').hidden = false;
+    });
   });
   $('#nouvelle').addEventListener('click', function(){ $('#merci').hidden = true; $('#form-devis').hidden = false; });
+
+  /* Envoi des formulaires vers Formspree */
+  var FORMSPREE = 'https://formspree.io/f/mrppqbpd';
+  function envoyer(donnees, bouton, err, succes){
+    var html = bouton.innerHTML;
+    bouton.disabled = true; bouton.textContent = 'Envoi en cours';
+    fetch(FORMSPREE, { method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }, body: JSON.stringify(donnees) })
+      .then(function(r){ if(!r.ok) throw new Error('refus'); succes(); })
+      .catch(function(){ err.textContent = "L'envoi n'a pas abouti. Réessayez dans un instant ou écrivez à arcaneconseil@gmail.com."; })
+      .then(function(){ bouton.disabled = false; bouton.innerHTML = html; });
+  }
+
+  /* Prise de rendez vous en visio : tous les jours, de 8 h à 23 h 30, créneaux de 45 minutes */
+  var AG = { debut: 8 * 60, fin: 23 * 60 + 30, duree: 45, horizon: 60 };
+  var JOURS = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+  var agDebut = 0, agJour = null, agHeure = null;
+  function jourIndex(i){ var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + i); return d; }
+  function hhmm(m){ return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); }
+  function creneauxDu(i){
+    var out = [], maintenant = new Date(), base = jourIndex(i);
+    for(var m = AG.debut; m + AG.duree <= AG.fin; m += AG.duree){
+      var t = new Date(base); t.setMinutes(m);
+      out.push({ m: m, passe: t <= maintenant });
+    }
+    return out;
+  }
+  function libreDu(i){ return creneauxDu(i).some(function(c){ return !c.passe; }); }
+  function nbJours(){ return innerWidth < 560 ? 4 : 7; }
+  function dateLongue(i){ return jourIndex(i).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }); }
+  function dessinerAgenda(){
+    var n = nbJours(), box = $('#ag-jours');
+    agDebut = Math.max(0, Math.min(agDebut, AG.horizon - n));
+    box.style.setProperty('--n', n);
+    var h = '';
+    for(var i = agDebut; i < agDebut + n; i++){
+      var d = jourIndex(i), dispo = libreDu(i);
+      h += '<button type="button" class="jour" data-i="' + i + '" aria-pressed="' + (i === agJour) + '"' + (dispo ? '' : ' disabled style="opacity:.35;cursor:not-allowed"') + ' aria-label="' + dateLongue(i) + '"><span>' + JOURS[d.getDay()] + '</span><b>' + d.getDate() + '</b></button>';
+    }
+    box.innerHTML = h;
+    var m1 = jourIndex(agDebut).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' }), m2 = jourIndex(agDebut + n - 1).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+    $('#ag-mois').textContent = m1 === m2 ? m1 : m1 + ' · ' + m2;
+    $('#ag-prec').disabled = agDebut === 0;
+    $('#ag-suiv').disabled = agDebut + n >= AG.horizon;
+    var c = $('#ag-creneaux');
+    if(agJour === null){ c.innerHTML = '<p class="ag-vide">Choisissez un jour pour voir les créneaux.</p>'; }
+    else {
+      c.innerHTML = creneauxDu(agJour).map(function(s){
+        return '<button type="button" class="creneau" data-m="' + s.m + '" aria-pressed="' + (s.m === agHeure) + '"' + (s.passe ? ' disabled' : '') + '>' + hhmm(s.m) + '</button>';
+      }).join('');
+    }
+    $('#ag-choix').textContent = agJour !== null && agHeure !== null
+      ? 'Visio le ' + dateLongue(agJour) + ' de ' + hhmm(agHeure) + ' à ' + hhmm(agHeure + AG.duree)
+      : 'Aucun créneau sélectionné';
+  }
+  agJour = libreDu(0) ? 0 : 1;
+  $('#ag-jours').addEventListener('click', function(e){ var b = e.target.closest('.jour'); if(!b || b.disabled) return; agJour = +b.dataset.i; agHeure = null; dessinerAgenda(); });
+  $('#ag-creneaux').addEventListener('click', function(e){ var b = e.target.closest('.creneau'); if(!b || b.disabled) return; agHeure = +b.dataset.m; $('#r-erreur').textContent = ''; dessinerAgenda(); });
+  $('#ag-prec').addEventListener('click', function(){ agDebut -= nbJours(); dessinerAgenda(); });
+  $('#ag-suiv').addEventListener('click', function(){ agDebut += nbJours(); dessinerAgenda(); });
+  addEventListener('resize', function(){ if(courant === 'contact') dessinerAgenda(); });
+  $('#ag-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('#r-erreur'), nom = $('#r-nom').value.trim(), mail = $('#r-email').value.trim();
+    if(agJour === null || agHeure === null){ err.textContent = 'Choisissez un jour et un créneau.'; return; }
+    if(!nom){ err.textContent = 'Indiquez votre nom.'; $('#r-nom').focus(); return; }
+    if(!/^\S+@\S+\.\S+$/.test(mail)){ err.textContent = 'Indiquez un email valide, par exemple nom@domaine.fr.'; $('#r-email').focus(); return; }
+    if(!$('#r-accord').checked){ err.textContent = 'Cochez la case pour que nous puissions vous recontacter.'; return; }
+    err.textContent = '';
+    var quand = dateLongue(agJour) + ' de ' + hhmm(agHeure) + ' à ' + hhmm(agHeure + AG.duree);
+    var d = jourIndex(agJour);
+    envoyer({ _subject: 'Demande de rendez vous en visio', type: 'Rendez vous visio', date: d.toLocaleDateString('fr-FR'), heure: hhmm(agHeure), creneau: quand, nom: nom, email: mail }, this.querySelector('button[type="submit"]'), err, function(){
+      $('#ag-merci-titre').textContent = 'Merci ' + nom.split(' ')[0] + '.';
+      $('#ag-merci-texte').textContent = 'Votre demande de rendez vous en visio le ' + quand + ' est bien envoyée. Vous recevrez la confirmation et le lien de la visio par email.';
+      $('#ag-form').hidden = true; $('#ag-merci').hidden = false;
+    });
+  });
+  $('#ag-autre').addEventListener('click', function(){ agHeure = null; $('#ag-form').reset(); $('#ag-merci').hidden = true; $('#ag-form').hidden = false; dessinerAgenda(); });
+  dessinerAgenda();
   $('#copier').addEventListener('click', function(){
     var b = this, t = $('#mail').textContent;
     function ok(){ b.textContent = 'Copié'; setTimeout(function(){ b.textContent = 'Copier'; }, 1600); }
