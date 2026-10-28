@@ -256,6 +256,8 @@ form.devis{display:grid;gap:22px;padding:clamp(24px,3.4vw,44px);border-radius:28
 .recap div{display:grid;grid-template-columns:100px minmax(0,1fr);gap:12px}
 .recap span{color:var(--gris)}
 .agenda{max-width:860px;margin:0 auto;padding:clamp(20px,3vw,36px);border-radius:28px;border:1px solid var(--trait);background:var(--blanc);display:grid;gap:22px}
+.agenda-google iframe{display:block;width:100%;height:720px;border:0;border-radius:18px;background:var(--brume)}
+@media (max-width:560px){.agenda-google iframe{height:820px}}
 .ag-mois{text-align:center;font-weight:500;text-transform:capitalize}
 .ag-nav{display:flex;align-items:center;gap:8px}
 .ag-fl{width:44px;height:44px;flex:none;border-radius:50%;border:1px solid var(--trait);background:none;cursor:pointer;display:grid;place-items:center}
@@ -563,30 +565,9 @@ footer{border-top:1px solid var(--trait);padding-block:72px calc(40px + env(safe
         <h2>Prendre rendez vous <span class="leger">en visio.</span></h2>
         <p>Choisissez un jour puis un créneau de 45 minutes. Disponible tous les jours, de 8 h à 23 h 30.</p>
       </div>
-      <div class="agenda">
-        <div class="ag-mois" id="ag-mois"></div>
-        <div class="ag-nav">
-          <button class="ag-fl" type="button" id="ag-prec" aria-label="Jours précédents"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 8H2M7 3L2 8l5 5"/></svg></button>
-          <div class="ag-jours" id="ag-jours" role="group" aria-label="Choisir un jour"></div>
-          <button class="ag-fl" type="button" id="ag-suiv" aria-label="Jours suivants"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></button>
-        </div>
-        <div class="ag-creneaux" id="ag-creneaux" role="group" aria-label="Choisir un créneau"></div>
-        <form class="ag-form" id="ag-form" novalidate>
-          <p class="ag-choix" id="ag-choix">Aucun créneau sélectionné</p>
-          <div class="duo">
-            <div class="champ"><label for="r-nom">Nom</label><input id="r-nom" name="nom" autocomplete="name" placeholder="Prénom Nom"></div>
-            <div class="champ"><label for="r-email">Email</label><input id="r-email" name="email" type="email" autocomplete="email" placeholder="vous@exemple.fr"></div>
-          </div>
-          <label class="accord" for="r-accord"><input type="checkbox" id="r-accord"><span>J'accepte d'être recontacté au sujet de ce rendez vous. Mes informations ne sont jamais partagées.</span></label>
-          <p class="erreur" id="r-erreur" role="alert"></p>
-          <button class="btn envoyer" type="submit">Confirmer le rendez vous <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg></button>
-        </form>
-        <div class="merci" id="ag-merci" hidden>
-          <span class="mono oeil"><span class="tick"><i></i><i></i><i></i></span>Rendez vous demandé</span>
-          <h3 id="ag-merci-titre">Merci.</h3>
-          <p id="ag-merci-texte"></p>
-          <button class="btn vide" type="button" id="ag-autre">Choisir un autre créneau</button>
-        </div>
+      <div class="agenda agenda-google">
+        <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2qCDRaCXRfeQIBBWK6TzSnFSB6FQf5gzH7lonHhnCq4fVIb38aOIUv14YfgaUlpE5eLan15sz_?gv=true" title="Prendre rendez vous en visio avec Arcane Conseil" loading="lazy"></iframe>
+        <a class="btn vide" href="https://calendar.google.com/appointments/schedules/AcZssZ2qCDRaCXRfeQIBBWK6TzSnFSB6FQf5gzH7lonHhnCq4fVIb38aOIUv14YfgaUlpE5eLan15sz_" target="_blank" rel="noopener" style="justify-self:center">Ouvrir la page de réservation</a>
       </div>
     </div>
   </section>
@@ -765,11 +746,11 @@ footer{border-top:1px solid var(--trait);padding-block:72px calc(40px + env(safe
       ['Données personnelles', '<p>Le traitement de vos données est décrit dans notre <a href="#confidentialite"><b>politique de confidentialité</b></a>.</p>']]},
     'confidentialite': { titre:'Politique de confidentialité', intro:"Comment Arcane Conseil collecte, utilise et protège vos données personnelles, conformément au RGPD.", sections:[
       ['Responsable du traitement', '<p><b>Arcane Conseil</b>, Elie Monceau, arcaneconseil@gmail.com</p>'],
-      ['Données collectées', '<p>Via le formulaire de contact : nom, adresse email, téléphone (facultatif), profil, service souhaité, échéance et message. Via la prise de rendez vous : nom, adresse email, date et heure choisies.</p>'],
+      ['Données collectées', '<p>Via le formulaire de contact : nom, adresse email, téléphone (facultatif), profil, service souhaité, échéance et message. La prise de rendez vous en visio passe par Google Agenda : les informations saisies (nom, adresse email, réponses au formulaire) sont traitées par Google.</p>'],
       ['Finalités', '<p>Répondre à votre demande, établir un devis et assurer le suivi de notre relation.</p>'],
       ['Base légale', "<p>Votre consentement, et les mesures précontractuelles prises à votre demande.</p>"],
       ['Durée de conservation', "<p>Trois ans à compter de notre dernier échange, sauf obligation légale de conservation plus longue.</p>"],
-      ['Destinataires', "<p>Vos données sont destinées uniquement à Arcane Conseil. Elles ne sont jamais vendues ni cédées. Prestataires techniques : Formspree (transmission des formulaires) et Vercel (hébergement du site).</p>"],
+      ['Destinataires', "<p>Vos données sont destinées uniquement à Arcane Conseil. Elles ne sont jamais vendues ni cédées. Prestataires techniques : Formspree (transmission des formulaires), Google (prise de rendez vous et visioconférence Google Meet) et Vercel (hébergement du site).</p>"],
       ['Vos droits', "<p>Vous disposez d'un droit d'accès, de rectification, d'effacement, d'opposition, de limitation et de portabilité de vos données. Pour l'exercer, écrivez à arcaneconseil@gmail.com. Vous pouvez aussi adresser une réclamation à la CNIL (cnil.fr).</p>"]]},
     'cookies': { titre:'Politique cookies', intro:"Ce que sont les cookies, ceux que ce site utilise et comment gérer vos choix.", sections:[
       ["Qu'est ce qu'un cookie", "<p>Un cookie est un petit fichier enregistré sur votre appareil lors de la visite d'un site. Il permet notamment de mémoriser vos préférences.</p>"],
@@ -843,72 +824,6 @@ footer{border-top:1px solid var(--trait);padding-block:72px calc(40px + env(safe
       .then(function(){ bouton.disabled = false; bouton.innerHTML = html; });
   }
 
-  /* Prise de rendez vous en visio : tous les jours, de 8 h à 23 h 30, créneaux de 45 minutes */
-  var AG = { debut: 8 * 60, fin: 23 * 60 + 30, duree: 45, horizon: 60 };
-  var JOURS = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
-  var agDebut = 0, agJour = null, agHeure = null;
-  function jourIndex(i){ var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + i); return d; }
-  function hhmm(m){ return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'); }
-  function creneauxDu(i){
-    var out = [], maintenant = new Date(), base = jourIndex(i);
-    for(var m = AG.debut; m + AG.duree <= AG.fin; m += AG.duree){
-      var t = new Date(base); t.setMinutes(m);
-      out.push({ m: m, passe: t <= maintenant });
-    }
-    return out;
-  }
-  function libreDu(i){ return creneauxDu(i).some(function(c){ return !c.passe; }); }
-  function nbJours(){ return innerWidth < 560 ? 4 : 7; }
-  function dateLongue(i){ return jourIndex(i).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' }); }
-  function dessinerAgenda(){
-    var n = nbJours(), box = $('#ag-jours');
-    agDebut = Math.max(0, Math.min(agDebut, AG.horizon - n));
-    box.style.setProperty('--n', n);
-    var h = '';
-    for(var i = agDebut; i < agDebut + n; i++){
-      var d = jourIndex(i), dispo = libreDu(i);
-      h += '<button type="button" class="jour" data-i="' + i + '" aria-pressed="' + (i === agJour) + '"' + (dispo ? '' : ' disabled style="opacity:.35;cursor:not-allowed"') + ' aria-label="' + dateLongue(i) + '"><span>' + JOURS[d.getDay()] + '</span><b>' + d.getDate() + '</b></button>';
-    }
-    box.innerHTML = h;
-    var m1 = jourIndex(agDebut).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' }), m2 = jourIndex(agDebut + n - 1).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
-    $('#ag-mois').textContent = m1 === m2 ? m1 : m1 + ' · ' + m2;
-    $('#ag-prec').disabled = agDebut === 0;
-    $('#ag-suiv').disabled = agDebut + n >= AG.horizon;
-    var c = $('#ag-creneaux');
-    if(agJour === null){ c.innerHTML = '<p class="ag-vide">Choisissez un jour pour voir les créneaux.</p>'; }
-    else {
-      c.innerHTML = creneauxDu(agJour).map(function(s){
-        return '<button type="button" class="creneau" data-m="' + s.m + '" aria-pressed="' + (s.m === agHeure) + '"' + (s.passe ? ' disabled' : '') + '>' + hhmm(s.m) + '</button>';
-      }).join('');
-    }
-    $('#ag-choix').textContent = agJour !== null && agHeure !== null
-      ? 'Visio le ' + dateLongue(agJour) + ' de ' + hhmm(agHeure) + ' à ' + hhmm(agHeure + AG.duree)
-      : 'Aucun créneau sélectionné';
-  }
-  agJour = libreDu(0) ? 0 : 1;
-  $('#ag-jours').addEventListener('click', function(e){ var b = e.target.closest('.jour'); if(!b || b.disabled) return; agJour = +b.dataset.i; agHeure = null; dessinerAgenda(); });
-  $('#ag-creneaux').addEventListener('click', function(e){ var b = e.target.closest('.creneau'); if(!b || b.disabled) return; agHeure = +b.dataset.m; $('#r-erreur').textContent = ''; dessinerAgenda(); });
-  $('#ag-prec').addEventListener('click', function(){ agDebut -= nbJours(); dessinerAgenda(); });
-  $('#ag-suiv').addEventListener('click', function(){ agDebut += nbJours(); dessinerAgenda(); });
-  addEventListener('resize', function(){ if(courant === 'contact') dessinerAgenda(); });
-  $('#ag-form').addEventListener('submit', function(e){
-    e.preventDefault();
-    var err = $('#r-erreur'), nom = $('#r-nom').value.trim(), mail = $('#r-email').value.trim();
-    if(agJour === null || agHeure === null){ err.textContent = 'Choisissez un jour et un créneau.'; return; }
-    if(!nom){ err.textContent = 'Indiquez votre nom.'; $('#r-nom').focus(); return; }
-    if(!/^\S+@\S+\.\S+$/.test(mail)){ err.textContent = 'Indiquez un email valide, par exemple nom@domaine.fr.'; $('#r-email').focus(); return; }
-    if(!$('#r-accord').checked){ err.textContent = 'Cochez la case pour que nous puissions vous recontacter.'; return; }
-    err.textContent = '';
-    var quand = dateLongue(agJour) + ' de ' + hhmm(agHeure) + ' à ' + hhmm(agHeure + AG.duree);
-    var d = jourIndex(agJour);
-    envoyer({ _subject: 'Demande de rendez vous en visio', type: 'Rendez vous visio', date: d.toLocaleDateString('fr-FR'), heure: hhmm(agHeure), creneau: quand, nom: nom, email: mail }, this.querySelector('button[type="submit"]'), err, function(){
-      $('#ag-merci-titre').textContent = 'Merci ' + nom.split(' ')[0] + '.';
-      $('#ag-merci-texte').textContent = 'Votre demande de rendez vous en visio le ' + quand + ' est bien envoyée. Vous recevrez la confirmation et le lien de la visio par email.';
-      $('#ag-form').hidden = true; $('#ag-merci').hidden = false;
-    });
-  });
-  $('#ag-autre').addEventListener('click', function(){ agHeure = null; $('#ag-form').reset(); $('#ag-merci').hidden = true; $('#ag-form').hidden = false; dessinerAgenda(); });
-  dessinerAgenda();
   $('#copier').addEventListener('click', function(){
     var b = this, t = $('#mail').textContent;
     function ok(){ b.textContent = 'Copié'; setTimeout(function(){ b.textContent = 'Copier'; }, 1600); }
